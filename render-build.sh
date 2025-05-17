@@ -5,9 +5,8 @@ set -o errexit
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Install Playwright and its dependencies
+# Install Playwright browsers
 playwright install
-playwright install-deps
 
 # Create necessary directories if they don't exist
 mkdir -p flask_session
