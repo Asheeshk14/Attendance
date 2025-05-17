@@ -49,6 +49,7 @@ def login():
             return render_template('login.html', error=f"Failed to fetch attendance: {str(e)}")
     
     return render_template('login.html')
+
 def scrape_attendance(username, password):
     from playwright.sync_api import sync_playwright
     import re
@@ -160,8 +161,6 @@ def scrape_attendance(username, password):
         finally:
             browser.close()
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # Check if scraped data exists in session
@@ -198,8 +197,8 @@ def index():
         custom_percentage_attend = int(request.form.get('custom_percentage_attend', 75))
         custom_percentage_miss = int(request.form.get('custom_percentage_miss', 75))
 
-        # Update default values
-        default_values = {
+        # Store values in session
+        session['previous_values'] = {
             'current_attended': current_attended,
             'current_conducted': current_conducted,
             'willing_to_attend': willing_to_attend,
@@ -208,43 +207,31 @@ def index():
             'custom_percentage_miss': custom_percentage_miss
         }
 
-        # Store values in session
-        session['previous_values'] = default_values
-
-        # Calculate updated values
+        # Calculate attendance
         total_attended = current_attended + willing_to_attend
         total_conducted = current_conducted + conducted_to_add
 
-        # Calculate attendance percentage
-        if total_conducted > 0:
-            attendance_percentage = round((total_attended / total_conducted) * 100, 2)
-        else:
-            attendance_percentage = 0
+        if total_conducted == 0:
+            return render_template('index.html', error="Total classes conducted cannot be zero", **default_values)
 
-        # Calculate required classes for custom percentage attendance
-        required_classes_custom = max(0, int((custom_percentage_attend * total_conducted - total_attended) / (1 - custom_percentage_attend / 100)))
-        max_classes_miss_custom = max(0, int((total_conducted - total_attended) * (1 - custom_percentage_miss / 100)))
+        current_percentage = (current_attended / current_conducted) * 100 if current_conducted > 0 else 0
+        future_percentage = (total_attended / total_conducted) * 100
 
-        # Default calculation for 75%
-        required_classes_75 = max(0, int((75 * total_conducted - total_attended) / (1 - 75 / 100)))
-        max_classes_miss_75 = max(0, int(total_attended - (75 / 100 * total_conducted)))
+        return render_template('result.html',
+                             current_attended=current_attended,
+                             current_conducted=current_conducted,
+                             willing_to_attend=willing_to_attend,
+                             conducted_to_add=conducted_to_add,
+                             current_percentage=current_percentage,
+                             future_percentage=future_percentage,
+                             custom_percentage_attend=custom_percentage_attend,
+                             custom_percentage_miss=custom_percentage_miss)
 
-        return render_template(
-            'result.html',
-            attended=total_attended,
-            conducted=total_conducted,
-            percentage=attendance_percentage,
-            required_classes_custom=required_classes_custom,
-            max_classes_miss_custom=max_classes_miss_custom,
-            required_classes_75=required_classes_75,
-            max_classes_miss_75=max_classes_miss_75,
-            custom_percentage_attend=custom_percentage_attend,
-            custom_percentage_miss=custom_percentage_miss,
-            required_classes=required_classes_75,
-            max_classes_miss=max_classes_miss_75
-        )
+    return render_template('index.html', **default_values)
 
-    return render_template('index.html', previous_values=default_values)
+@app.route('/health')
+def health():
+    return 'OK', 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=False)
