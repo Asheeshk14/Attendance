@@ -7,8 +7,7 @@
 
 A smart Flask web application to automatically track your college attendance, calculate future scenarios, and help you stay on top of your academic requirements. Never miss the 75% mark again!
 
-<!-- TODO: Add a nice screenshot of the app's dashboard -->
-![App Screenshot](https://github.com/pavansaicharan/newatd/blob/main/login_error.png?raw=true) 
+
 
 
 ---
