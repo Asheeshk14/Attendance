@@ -215,16 +215,12 @@ def index():
         if total_conducted == 0:
             return render_template('index.html', error="Total classes conducted cannot be zero", **default_values)
 
-        current_percentage = (current_attended / current_conducted) * 100 if current_conducted > 0 else 0
-        future_percentage = (total_attended / total_conducted) * 100
+        total_percentage = (total_attended / total_conducted) * 100 if total_conducted > 0 else 0
 
         return render_template('result.html',
-                             current_attended=current_attended,
-                             current_conducted=current_conducted,
-                             willing_to_attend=willing_to_attend,
-                             conducted_to_add=conducted_to_add,
-                             current_percentage=current_percentage,
-                             future_percentage=future_percentage,
+                             total_attended=total_attended,
+                             total_conducted=total_conducted,
+                             total_percentage=total_percentage,
                              custom_percentage_attend=custom_percentage_attend,
                              custom_percentage_miss=custom_percentage_miss)
 

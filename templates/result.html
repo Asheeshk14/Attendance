@@ -11,32 +11,23 @@
         <div class="result-card">
             <h1>Attendance Summary</h1>
             <div class="result-item">
-                <p><strong>Current Classes Conducted:</strong> <span>{{ current_conducted }}</span></p>
+                <p><strong>Total Classes Conducted:</strong> <span>{{ total_conducted }}</span></p>
             </div>
             <div class="result-item">
-                <p><strong>Current Classes Attended:</strong> <span>{{ current_attended }}</span></p>
+                <p><strong>Total Classes Attended:</strong> <span>{{ total_attended }}</span></p>
             </div>
             <div class="result-item">
-                <p><strong>Current Attendance Percentage:</strong> <span>{{ current_percentage }}%</span></p>
-            </div>
-            <div class="result-item">
-                <p><strong>Future Classes Conducted:</strong> <span>{{ current_conducted + conducted_to_add }}</span></p>
-            </div>
-            <div class="result-item">
-                <p><strong>Future Classes Attended:</strong> <span>{{ current_attended + willing_to_attend }}</span></p>
-            </div>
-            <div class="result-item">
-                <p><strong>Future Attendance Percentage:</strong> <span>{{ future_percentage }}%</span></p>
+                <p><strong>Attendance Percentage:</strong> <span>{{ '%.2f' % total_percentage }}%</span></p>
             </div>
 
             <!-- Custom percentages form -->
             <label for="custom_percentage_attend">Enter % for Required Classes:</label>
             <input type="number" id="custom_percentage_attend" value="{{ custom_percentage_attend }}" min="1" max="100" onchange="updateAttendance()">
-            <p><strong>Classes Needed to Attend:</strong> <span id="required_classes">{{ required_classes }}</span></p>
+            <p><strong>Classes Needed to Attend:</strong> <span id="required_classes">0</span></p>
 
             <label for="custom_percentage_miss">Enter % for Max Missable Classes:</label>
             <input type="number" id="custom_percentage_miss" value="{{ custom_percentage_miss }}" min="1" max="100" onchange="updateAttendance()">
-            <p><strong>Classes Can Be Missed:</strong> <span id="max_classes_miss">{{ max_classes_miss }}</span></p>
+            <p><strong>Classes Can Be Missed:</strong> <span id="max_classes_miss">0</span></p>
 
             <!-- Back button -->
             <form action="{{ url_for('index') }}" method="GET">
@@ -47,14 +38,8 @@
 
     <script>
         function updateAttendance() {
-            const currentConducted = {{ current_conducted }};
-            const currentAttended = {{ current_attended }};
-            const conductedToAdd = {{ conducted_to_add }};
-            const willingToAttend = {{ willing_to_attend }};
-            
-            const totalConducted = currentConducted + conductedToAdd;
-            const totalAttended = currentAttended + willingToAttend;
-            
+            const totalConducted = {{ total_conducted }};
+            const totalAttended = {{ total_attended }};
             const customPercentageAttend = document.getElementById('custom_percentage_attend').value / 100;
             const customPercentageMiss = document.getElementById('custom_percentage_miss').value / 100;
 
