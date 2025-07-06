@@ -2,9 +2,10 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from playwright.sync_api import sync_playwright
 import time
 import requests
+import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Change this to a strong secret key
+app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key_here')  # Use environment variable for production
 app.config['SESSION_TYPE'] = 'filesystem'
 
 # College portal URLs
@@ -234,4 +235,5 @@ def health():
     return 'OK', 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000, debug=False)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port, debug=False)
