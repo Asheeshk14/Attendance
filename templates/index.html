@@ -18,22 +18,27 @@
                 Fetch from College Portal
             </button>
         </div>
+        {% if error %}
+        <div class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background-color: #ffebee; border-radius: 5px;">
+            {{ error }}
+        </div>
+        {% endif %}
         <form method="POST">
             <label for="current_attended"> Classes Attended:</label>
                 <input type="number" id="current_attended" name="current_attended" required 
-                    value="{{ previous_values['current_attended'] }}" 
+                    value="{{ current_attended }}" 
                     onfocus="clearDefaultValue(this)" 
                     onblur="restoreDefaultValue(this)">
     
                 <label for="current_conducted"> Classes Conducted:</label>
                 <input type="number" id="current_conducted" name="current_conducted" required 
-                    value="{{ previous_values['current_conducted'] }}" 
+                    value="{{ current_conducted }}" 
                     onfocus="clearDefaultValue(this)" 
                     onblur="restoreDefaultValue(this)">
     
                 <label for="willing_to_attend">Classes Willing to Attend:</label>
                 <input type="number" id="willing_to_attend" name="willing_to_attend" required 
-                    value="{{ previous_values['willing_to_attend'] }}" 
+                    value="{{ willing_to_attend }}" 
                     onfocus="clearDefaultValue(this)" 
                     onblur="restoreDefaultValue(this)">
                 <div class="buttons">
@@ -45,7 +50,7 @@
     
                 <label for="conducted_to_add">Classes to Be Conducted:</label>
                 <input type="number" id="conducted_to_add" name="conducted_to_add" required 
-                    value="{{ previous_values['conducted_to_add'] }}" 
+                    value="{{ conducted_to_add }}" 
                     onfocus="clearDefaultValue(this)" 
                     onblur="restoreDefaultValue(this)">
                 <div class="buttons">

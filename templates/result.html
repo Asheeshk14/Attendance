@@ -11,13 +11,22 @@
         <div class="result-card">
             <h1>Attendance Summary</h1>
             <div class="result-item">
-                <p><strong>Total Classes Conducted:</strong> <span>{{ conducted }}</span></p>
+                <p><strong>Current Classes Conducted:</strong> <span>{{ current_conducted }}</span></p>
             </div>
             <div class="result-item">
-                <p><strong>Total Classes Attended:</strong> <span>{{ attended }}</span></p>
+                <p><strong>Current Classes Attended:</strong> <span>{{ current_attended }}</span></p>
             </div>
             <div class="result-item">
-                <p><strong>Attendance Percentage:</strong> <span>{{ percentage }}%</span></p>
+                <p><strong>Current Attendance Percentage:</strong> <span>{{ current_percentage }}%</span></p>
+            </div>
+            <div class="result-item">
+                <p><strong>Future Classes Conducted:</strong> <span>{{ current_conducted + conducted_to_add }}</span></p>
+            </div>
+            <div class="result-item">
+                <p><strong>Future Classes Attended:</strong> <span>{{ current_attended + willing_to_attend }}</span></p>
+            </div>
+            <div class="result-item">
+                <p><strong>Future Attendance Percentage:</strong> <span>{{ future_percentage }}%</span></p>
             </div>
 
             <!-- Custom percentages form -->
@@ -38,8 +47,14 @@
 
     <script>
         function updateAttendance() {
-            const totalConducted = {{ conducted }};
-            const totalAttended = {{ attended }};
+            const currentConducted = {{ current_conducted }};
+            const currentAttended = {{ current_attended }};
+            const conductedToAdd = {{ conducted_to_add }};
+            const willingToAttend = {{ willing_to_attend }};
+            
+            const totalConducted = currentConducted + conductedToAdd;
+            const totalAttended = currentAttended + willingToAttend;
+            
             const customPercentageAttend = document.getElementById('custom_percentage_attend').value / 100;
             const customPercentageMiss = document.getElementById('custom_percentage_miss').value / 100;
 
