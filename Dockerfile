@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y \
     libmanette-0.2-0 \
     libgles2 \
     libsoup-3.0-0 \
-    libgstgl-1.0-0 \
-    libgstcodecparsers-1.0-0 \
+    libgstreamer-gl1.0-0 \
+    libgstreamer-plugins-base1.0-0 \
     --no-install-recommends && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
