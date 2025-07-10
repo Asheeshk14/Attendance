@@ -10,7 +10,7 @@ pip install -r requirements.txt
 
 # Install Playwright browsers
 echo "🌐 Installing Playwright browsers..."
-playwright install chromium
+playwright install
 
 # Create necessary directories if they don't exist
 echo "📁 Creating directories..."
