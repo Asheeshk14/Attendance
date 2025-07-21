@@ -50,13 +50,9 @@ Follow these instructions to get the project up and running on your local machin
 
 ### ⚙️ Installation & Setup
 
-1.  **Clone the repository:**
-    ```sh
-    git clone https://github.com/pavansaicharan/newatd.git
-    cd newatd
-    ```
 
-2.  **Create and activate a virtual environment:**
+
+1.  **Create and activate a virtual environment:**
     *   On **Windows**:
         ```sh
         python -m venv venv
@@ -68,12 +64,12 @@ Follow these instructions to get the project up and running on your local machin
         source venv/bin/activate
         ```
 
-3.  **Install the required dependencies:**
+2.  **Install the required dependencies:**
     ```sh
     pip install -r requirements.txt
     ```
 
-4.  **Install Playwright browsers:** (This is required for the scraping to work)
+3.  **Install Playwright browsers:** (This is required for the scraping to work)
     ```sh
     playwright install
     ```
@@ -102,7 +98,7 @@ Follow these instructions to get the project up and running on your local machin
     flask run
     ```
 
-3.  **You're all set!** Open your browser and navigate to `http://127.0.0.1:5000`.
+3.  **You're all set!** Open your browser and navigate to `[http://192.168.1.5:1000]`.
 
 ---
 
@@ -160,6 +156,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Contact
 
-Pavan Sai Charan - [GitHub Profile](https://github.com/pavansaicharan)
+Pavan Sai Charan - [GitHub Profile](https://github.com/Asheeshk14)
 
-Project Link: [https://github.com/pavansaicharan/newatd](https://github.com/pavansaicharan/newatd) 
+Project Link: [https://github.com/Asheeshk14/Attendance]([https://github.com/Asheeshk14/Attendance]) 
